@@ -1,0 +1,106 @@
+replicaCount: 1
+deploymentStrategy: RollingUpdate
+
+image:
+  repository: pellerex/RepoUniqueNormalisedIdentifier
+  pullPolicy: Always
+  tag: "v1.0.0"
+env:
+  - name: "ASPNETCORE_ENVIRONMENT"
+    value: "QualityAssurance"
+  - name: "ContainerMode"
+    value: "true"
+  - name: "Monitoring__AzureApplicationConnectionString"
+    value: "<azure-app-insights-connection-string-in-qualityassurance>"
+  - name: "Monitoring__AzureApplicationInsightsInstrumentationKey"
+    value: "<azure-app-insights-instrumentation-key-in-qualityassurance>"
+
+global:
+  envValuesFrom:
+    Runtime__IpAddress: status.podIP
+
+secretProviderClass:
+  enabled: <secret-provider-class-enabled>
+
+volumes:
+  - name: RepoUniqueNormalisedIdentifier-api-keyvault-volume
+    csiSecretProviderClass: RepoUniqueNormalisedIdentifier-api-vault
+
+volumeMounts:
+  - name: RepoUniqueNormalisedIdentifier-api-keyvault-volume
+    readOnly: true
+    mountPath: /root/.microsoft/usersecrets
+
+imagePullSecrets:
+  - name: image-pull-secret
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: false
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: <port-number>
+
+ingress:
+  enabled: true
+  className: ""
+  annotations:
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      if ($http_origin ~* "^https?://((?:www\.pellerex\.com))$") {
+        set $cors "true";
+      }
+      if ($request_method = 'OPTIONS') {
+        set $cors "${cors}options";
+      }
+
+      if ($cors = "true") {
+        add_header 'Access-Control-Allow-Origin' "$http_origin" always;
+        add_header 'Access-Control-Allow-Methods' 'GET, PUT, POST, DELETE, PATCH, OPTIONS' always;
+        add_header 'Access-Control-Allow-Headers' 'x-signalr-user-agent,x-requested-with,Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent' always;
+        add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range' always;
+      }
+
+      if ($cors = "trueoptions") {
+        add_header 'Access-Control-Allow-Origin' "$http_origin";
+        add_header 'Access-Control-Allow-Methods' 'GET, PUT, POST, DELETE, PATCH, OPTIONS';
+        add_header 'Access-Control-Allow-Headers' 'x-signalr-user-agent,x-requested-with,Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent';
+        add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+        add_header 'Access-Control-Max-Age' 1728000;
+        add_header 'Content-Type' 'text/plain charset=UTF-8';
+        add_header 'Content-Length' 0;
+        return 204;
+      }
+
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    kubernetes.io/ingress.class: nginx
+  hosts:
+    - host: api.pellerex.com
+      paths:
+        - path: /QualityAssurance/RepoUniqueNormalisedIdentifier(/|$)(.*)
+          pathType: Prefix
+  defaultBackend:
+    service:
+
+resources: {}
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
