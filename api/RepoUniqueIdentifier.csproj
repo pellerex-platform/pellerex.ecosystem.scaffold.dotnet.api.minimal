@@ -4,6 +4,10 @@
     <EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
     <UserSecretsId><marketplace-product-id></UserSecretsId>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <!-- Emit packages.lock.json (full resolved tree: direct + transitive, exact versions) on
+         restore, and commit it. AssetHealth's vulnerability scan reads the lockfile so it sees
+         transitive dependencies, not just the direct PackageReferences below. -->
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <NoWarn>1701;1702;1591</NoWarn>
