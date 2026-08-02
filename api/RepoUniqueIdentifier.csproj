@@ -2,7 +2,11 @@
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
-    <UserSecretsId><marketplace-product-id></UserSecretsId>
+    <!-- CDATA keeps this file valid XML while preserving the angle-bracketed template token
+         below byte-for-byte, so TemplateTokeniser's raw string replace still matches. Without
+         it the template fails to load (MSB4025) and breaks any workspace-wide build. Do not
+         XML-escape the token: the replace is literal, so escaping silently stops matching. -->
+    <UserSecretsId><![CDATA[<marketplace-product-id>]]></UserSecretsId>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <!-- Emit packages.lock.json (full resolved tree: direct + transitive, exact versions) on
          restore, and commit it. AssetHealth's vulnerability scan reads the lockfile so it sees
@@ -41,7 +45,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.AzureAppServices.HostingStartup" Version="8.0.10" />
-    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.1.0" />
@@ -59,11 +62,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="8.0.10" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.AzureKeyVault" Version="3.1.24" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.1" />
     <PackageReference Include="Microsoft.Extensions.ML" Version="3.0.1" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.6" />
     <PackageReference Include="morelinq" Version="4.3.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Pellerex.Scaffolds.CommonLibrary" Version="1.8.9" />
