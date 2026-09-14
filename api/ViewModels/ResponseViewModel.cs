@@ -1,4 +1,4 @@
-namespace RepoUniqueIdentifier
+namespace RepoUniquePascalIdentifier
 {
     public class ResponseViewModel
     {

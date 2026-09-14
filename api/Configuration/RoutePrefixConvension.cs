@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Routing;
 using System.Linq;
 
-namespace RepoUniqueIdentifier.Configuration
+namespace RepoUniquePascalIdentifier.Configuration
 {
     public static class MvcOptionsExtensions
     {

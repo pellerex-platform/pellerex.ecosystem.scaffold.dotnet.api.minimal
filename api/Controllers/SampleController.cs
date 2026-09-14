@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
 
-namespace RepoUniqueIdentifier.Controllers
+namespace RepoUniquePascalIdentifier.Controllers
 {
     [ApiController]
     [ApiVersion("1.0")]
