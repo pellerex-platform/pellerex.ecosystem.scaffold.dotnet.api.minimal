@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Serilog;
 using System.IO;
 
-namespace RepoUniqueIdentifier.Configuration
+namespace RepoUniquePascalIdentifier.Configuration
 {
     public class LoggingConfigurations
     {
