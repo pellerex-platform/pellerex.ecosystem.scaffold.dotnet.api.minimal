@@ -127,6 +127,14 @@ if [ "$DRY_RUN" = false ]; then
     ensure_ssh_key
 fi
 
+# A branch reused across sessions may already exist on the remote with
+# commits we do not have locally; merge those in first or the push is
+# rejected as a non fast-forward.
+echo "+ git fetch $REMOTE $BRANCH (skipped when the branch is not on the remote yet)"
+if [ "$DRY_RUN" = false ] && git fetch "$REMOTE" "$BRANCH" 2>/dev/null; then
+    run git merge --no-edit FETCH_HEAD
+fi
+
 # The org rulesets require PR branches to be up to date with the base branch,
 # so merge the base in before pushing. On a conflict the script stops here;
 # resolve, commit, and run it again.
