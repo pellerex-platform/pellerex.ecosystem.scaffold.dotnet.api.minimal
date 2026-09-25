@@ -19,4 +19,4 @@ echo "🌐 API will be available at: http://localhost:<port-number>"
 echo ""
 
 # Run with dotnet watch for hot reload
-dotnet watch --project api/RepoUniqueIdentifier.csproj run
+dotnet watch --project api/RepoUniquePascalIdentifier.csproj run

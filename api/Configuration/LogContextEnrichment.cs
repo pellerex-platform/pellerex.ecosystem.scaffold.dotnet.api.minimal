@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Serilog;
 using System.Threading.Tasks;
 
-namespace RepoUniqueIdentifier.Configuration
+namespace RepoUniquePascalIdentifier.Configuration
 {
     public class LogContextEnrichment
     {

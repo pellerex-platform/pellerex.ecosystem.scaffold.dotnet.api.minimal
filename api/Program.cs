@@ -1,4 +1,4 @@
-using RepoUniqueIdentifier.Configuration;
+using RepoUniquePascalIdentifier.Configuration;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -7,7 +7,7 @@ using Serilog;
 using System;
 using System.IO;
 
-namespace RepoUniqueIdentifier
+namespace RepoUniquePascalIdentifier
 {
     public class Program
     {

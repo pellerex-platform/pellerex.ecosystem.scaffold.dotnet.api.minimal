@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace RepoUniqueIdentifier.Configuration
+namespace RepoUniquePascalIdentifier.Configuration
 {
     public class ApiHealthCheck : IHealthCheck
     {

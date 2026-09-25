@@ -18,12 +18,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using RepoUniqueIdentifier.Configuration;
+using RepoUniquePascalIdentifier.Configuration;
 using Serilog;
 using System;
 using System.IO;
 
-namespace RepoUniqueIdentifier
+namespace RepoUniquePascalIdentifier
 {
     public class Startup
     {
@@ -138,9 +138,9 @@ namespace RepoUniqueIdentifier
             {
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo 
                 { 
-                    Title = "RepoUniqueIdentifier API", 
+                    Title = "RepoUniquePascalIdentifier API", 
                     Version = "v1",
-                    Description = "Pellerex API for RepoUniqueIdentifier"
+                    Description = "Pellerex API for RepoUniquePascalIdentifier"
                 });
 
                 // Include XML comments if available
@@ -197,7 +197,7 @@ namespace RepoUniqueIdentifier
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "RepoUniqueIdentifier API v1");
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "RepoUniquePascalIdentifier API v1");
                     c.RoutePrefix = "swagger"; // Set Swagger UI at /swagger
                 });
             }
