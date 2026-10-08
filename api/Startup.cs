@@ -155,18 +155,26 @@ namespace RepoUniquePascalIdentifier
 
         private AppSettings SetupConfiguration(IServiceCollection services)
         {
+            var appSettings = BuildConfiguration().Get<AppSettings>();
+            services.AddSingleton(appSettings);
+            return appSettings;
+        }
+
+        /// <summary>
+        /// The settings of the environment this API runs in: the base file, then the environment's
+        /// own file, then environment variables. The logger reads them from here too
+        /// (LoggingConfigurations), so it sends log messages where the requests are sent.
+        /// </summary>
+        public static IConfiguration BuildConfiguration()
+        {
             var environmentName = Environment.GetEnvironmentVariable(Constants.EnvironmentVariable);
 
-            var configuration = new ConfigurationBuilder()
+            return new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", false)
                 .AddJsonFile($"appsettings.{environmentName}.json", optional: true)
                 .AddEnvironmentVariables()
                 .Build();
-
-            var appSettings = configuration.Get<AppSettings>();
-            services.AddSingleton(appSettings);
-            return appSettings;
         }
 
         private void SetupDI(AppSettings settings, IServiceCollection services)

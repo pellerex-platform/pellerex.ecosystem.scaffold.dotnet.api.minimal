@@ -12,8 +12,6 @@ env:
     value: "true"
   - name: "Monitoring__AzureApplicationConnectionString"
     value: "<azure-app-insights-connection-string-in-production>"
-  - name: "Monitoring__AzureApplicationInsightsInstrumentationKey"
-    value: "<azure-app-insights-instrumentation-key-in-production>"
 
 global:
   envValuesFrom:

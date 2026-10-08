@@ -10,7 +10,6 @@
 
         public class ApplicationInsightsSettings
         {
-            public string AzureApplicationInsightsInstrumentationKey { get; set; }
             public string AzureApplicationConnectionString { get; set; }
         }
     }
