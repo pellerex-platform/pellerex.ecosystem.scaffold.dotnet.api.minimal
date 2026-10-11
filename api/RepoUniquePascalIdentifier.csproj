@@ -47,6 +47,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.1.32" />
+    <!-- Not used by the code directly. Microsoft.EntityFrameworkCore.SqlServer 8.0.10 brings in
+         5.1.5, which carries Azure.Identity 1.10.3 and Microsoft.Identity.Client 4.56.0, both
+         with known advisories (GHSA-m5vv-6r4h-3vj9, GHSA-wvxc-855f-jvrv, GHSA-x674-v45j-fwxw).
+         5.1.6 is the same SQL client with the patched pair (1.11.4 and 4.61.3). Remove this line
+         once the Entity Framework packages below depend on 5.1.6 or later by themselves. -->
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
       <PrivateAssets>all</PrivateAssets>
