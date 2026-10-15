@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<!--
+	  The app's acceptance tests: a TUnit pack that knows the running app only by its address, as any
+	  client does. Every test is typed Release, Acceptance or both, and acceptance-tests/run.sh runs
+	  exactly the set it is asked for. It references no project of the app and is not part of the
+	  app's solution: the pack must build with the app's code absent.
+
+	  The machinery is the Pellerex.Testing package, Pellerex's testing library, whose acceptance part
+	  holds the client the tests call the app with, set-up and tear-down, the checks every run makes,
+	  and the adapter run.sh calls to write the result file. All of it moves to a new version by its
+	  one version number below. The package's hooks are compiled against TUnit 1.75.0, so the TUnit
+	  here moves only once the package has been checked against the new version.
+	-->
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<OutputType>Exe</OutputType>
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Pellerex.Testing" Version="1.0.0" />
+		<PackageReference Include="TUnit" Version="1.75.0" />
+	</ItemGroup>
+
+</Project>
