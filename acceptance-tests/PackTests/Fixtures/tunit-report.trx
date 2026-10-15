@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="86810fbc-c829-41bf-8a17-cbb217313eed" name="@build-agent 2026-10-14 08:00:00" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-14T08:30:44.824421Z" queuing="2026-10-14T08:30:44.824421Z" start="2026-10-14T08:30:44.824421Z" finish="2026-10-14T08:30:44.947619Z" />
+  <TestSettings name="default" id="9f25a806-e6f6-49b1-9855-a994292cce54">
+    <Deployment runDeploymentRoot="_build-agent_2026-10-14_08_00_00" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="ab68d0e2-e508-4cf2-88ba-26d51f5d9394" testId="ec110e3f-db67-3aec-e149-c86d89481d8b" testName="Skipped_on_purpose" computerName="build-agent" duration="00:00:00.0045790" startTime="2026-10-14T08:30:44.9005940+00:00" endTime="2026-10-14T08:30:44.9051730+00:00" testType="13CDC9D9-DDB5-4fa4-A97D-D965CCFC6D4B" outcome="NotExecuted" testListId="8C84FA94-04C1-424b-9868-57A2D4851A1D" relativeResultsDirectory="ab68d0e2-e508-4cf2-88ba-26d51f5d9394">
+      <Output>
+        <DebugTrace>Skipped: skipped on purpose</DebugTrace>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="cc5c7080-80eb-453e-a9ee-dacb4e720cd5" testId="61d274b8-9dda-abbe-af87-8ce15627da5b" testName="A plain sentence name" computerName="build-agent" duration="00:00:00.0007750" startTime="2026-10-14T08:30:44.9134430+00:00" endTime="2026-10-14T08:30:44.9142180+00:00" testType="13CDC9D9-DDB5-4fa4-A97D-D965CCFC6D4B" outcome="Passed" testListId="8C84FA94-04C1-424b-9868-57A2D4851A1D" relativeResultsDirectory="cc5c7080-80eb-453e-a9ee-dacb4e720cd5" />
+    <UnitTestResult executionId="56bbfaa4-f3d6-4f43-9826-6d842179b39a" testId="f5967781-616a-81bc-6cd5-fa4dce5bd7e6" testName="Both_on_method" computerName="build-agent" duration="00:00:00.0017140" startTime="2026-10-14T08:30:44.9134190+00:00" endTime="2026-10-14T08:30:44.9151330+00:00" testType="13CDC9D9-DDB5-4fa4-A97D-D965CCFC6D4B" outcome="Passed" testListId="8C84FA94-04C1-424b-9868-57A2D4851A1D" relativeResultsDirectory="56bbfaa4-f3d6-4f43-9826-6d842179b39a">
+      <Output>
+        <StdOut>first line
+second line
+</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="30b392e8-78ff-47bb-9c01-d450ad646f88" testId="ed1f1ef9-906c-370a-0666-985fd31f9813" testName="Data_driven(1)" computerName="build-agent" duration="00:00:00.0117010" startTime="2026-10-14T08:30:44.9134840+00:00" endTime="2026-10-14T08:30:44.9251850+00:00" testType="13CDC9D9-DDB5-4fa4-A97D-D965CCFC6D4B" outcome="Passed" testListId="8C84FA94-04C1-424b-9868-57A2D4851A1D" relativeResultsDirectory="30b392e8-78ff-47bb-9c01-d450ad646f88" />
+    <UnitTestResult executionId="1274f671-5323-4148-9bcb-9abab9893f80" testId="a6e65861-558a-3a91-883f-bfc31b17a544" testName="Fails_on_purpose" computerName="build-agent" duration="00:00:00.0124460" startTime="2026-10-14T08:30:44.9134340+00:00" endTime="2026-10-14T08:30:44.9258800+00:00" testType="13CDC9D9-DDB5-4fa4-A97D-D965CCFC6D4B" outcome="Failed" testListId="8C84FA94-04C1-424b-9868-57A2D4851A1D" relativeResultsDirectory="1274f671-5323-4148-9bcb-9abab9893f80">
+      <Output>
+        <StdOut>before the failure
+</StdOut>
+        <ErrorInfo>
+          <Message>AssertionException: Expected to be 3
+but found 2
+
+at Assert.That(2).IsEqualTo(3)</Message>
+          <StackTrace>   at Sample.Tests.AcceptanceOnly.Fails_on_purpose() in /work/Tests.cs:line 14
+   --- TUnit internals omitted (run with --detailed-stacktrace for full trace) ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="Skipped_on_purpose" storage="/work/bin/Release/net10.0/Sample.dll" id="ec110e3f-db67-3aec-e149-c86d89481d8b">
+      <Execution id="ab68d0e2-e508-4cf2-88ba-26d51f5d9394" />
+      <Properties>
+        <Property>
+          <Key>Type</Key>
+          <Value>Acceptance</Value>
+        </Property>
+      </Properties>
+      <TestMethod codeBase="/work/bin/Release/net10.0/Sample.dll" adapterTypeName="executor://TUnitExtension/1.75.0.0" className="Sample.Tests.AcceptanceOnly" name="Skipped_on_purpose" />
+    </UnitTest>
+    <UnitTest name="A plain sentence name" storage="/work/bin/Release/net10.0/Sample.dll" id="61d274b8-9dda-abbe-af87-8ce15627da5b">
+      <Execution id="cc5c7080-80eb-453e-a9ee-dacb4e720cd5" />
+      <Properties>
+        <Property>
+          <Key>Type</Key>
+          <Value>Acceptance</Value>
+        </Property>
+      </Properties>
+      <TestMethod codeBase="/work/bin/Release/net10.0/Sample.dll" adapterTypeName="executor://TUnitExtension/1.75.0.0" className="Sample.Tests.MethodLevel" name="Named_by_attribute" />
+    </UnitTest>
+    <UnitTest name="Both_on_method" storage="/work/bin/Release/net10.0/Sample.dll" id="f5967781-616a-81bc-6cd5-fa4dce5bd7e6">
+      <Execution id="56bbfaa4-f3d6-4f43-9826-6d842179b39a" />
+      <Properties>
+        <Property>
+          <Key>Type</Key>
+          <Value>Acceptance</Value>
+        </Property>
+        <Property>
+          <Key>Type</Key>
+          <Value>Release</Value>
+        </Property>
+      </Properties>
+      <TestMethod codeBase="/work/bin/Release/net10.0/Sample.dll" adapterTypeName="executor://TUnitExtension/1.75.0.0" className="Sample.Tests.MethodLevel" name="Both_on_method" />
+    </UnitTest>
+    <UnitTest name="Data_driven(1)" storage="/work/bin/Release/net10.0/Sample.dll" id="ed1f1ef9-906c-370a-0666-985fd31f9813">
+      <Execution id="30b392e8-78ff-47bb-9c01-d450ad646f88" />
+      <Properties>
+        <Property>
+          <Key>Type</Key>
+          <Value>Acceptance</Value>
+        </Property>
+      </Properties>
+      <TestMethod codeBase="/work/bin/Release/net10.0/Sample.dll" adapterTypeName="executor://TUnitExtension/1.75.0.0" className="Sample.Tests.MethodLevel" name="Data_driven" />
+    </UnitTest>
+    <UnitTest name="Fails_on_purpose" storage="/work/bin/Release/net10.0/Sample.dll" id="a6e65861-558a-3a91-883f-bfc31b17a544">
+      <Execution id="1274f671-5323-4148-9bcb-9abab9893f80" />
+      <Properties>
+        <Property>
+          <Key>Type</Key>
+          <Value>Acceptance</Value>
+        </Property>
+      </Properties>
+      <TestMethod codeBase="/work/bin/Release/net10.0/Sample.dll" adapterTypeName="executor://TUnitExtension/1.75.0.0" className="Sample.Tests.AcceptanceOnly" name="Fails_on_purpose" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="ec110e3f-db67-3aec-e149-c86d89481d8b" executionId="ab68d0e2-e508-4cf2-88ba-26d51f5d9394" testListId="8C84FA94-04C1-424b-9868-57A2D4851A1D" />
+    <TestEntry testId="61d274b8-9dda-abbe-af87-8ce15627da5b" executionId="cc5c7080-80eb-453e-a9ee-dacb4e720cd5" testListId="8C84FA94-04C1-424b-9868-57A2D4851A1D" />
+    <TestEntry testId="f5967781-616a-81bc-6cd5-fa4dce5bd7e6" executionId="56bbfaa4-f3d6-4f43-9826-6d842179b39a" testListId="8C84FA94-04C1-424b-9868-57A2D4851A1D" />
+    <TestEntry testId="ed1f1ef9-906c-370a-0666-985fd31f9813" executionId="30b392e8-78ff-47bb-9c01-d450ad646f88" testListId="8C84FA94-04C1-424b-9868-57A2D4851A1D" />
+    <TestEntry testId="a6e65861-558a-3a91-883f-bfc31b17a544" executionId="1274f671-5323-4148-9bcb-9abab9893f80" testListId="8C84FA94-04C1-424b-9868-57A2D4851A1D" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8C84FA94-04C1-424b-9868-57A2D4851A1D" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="5" executed="4" passed="3" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="1" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <RunInfos>
+      <RunInfo computerName="build-agent" outcome="Error" timestamp="2026-10-14T08:30:44.951793">
+        <Text>Exit code indicates failure: '2'. Please refer to https://aka.ms/testingplatform/exitcodes for more information.</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

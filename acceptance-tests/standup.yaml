@@ -1,0 +1,16 @@
+# How the stand-up tool starts this app for a local test run: in a container of its own, from the
+# image under test, on a network of its own, and torn down after the run. The app needs no
+# database, so it has no dependency and no secret.
+#
+# The settings keep a local run local. The app needs an environment name to start, and a local
+# run is development, never a deployed environment. An empty log store setting keeps the run's
+# telemetry on this machine instead of in a deployed environment's logs. ContainerMode is set as
+# it is when the app is deployed.
+app:
+  image: "{built-image}"
+  port: <port-number>
+  health: /health/ready
+  settings:
+    ASPNETCORE_ENVIRONMENT: "Development"
+    ContainerMode: "true"
+    Monitoring__AzureApplicationConnectionString: ""

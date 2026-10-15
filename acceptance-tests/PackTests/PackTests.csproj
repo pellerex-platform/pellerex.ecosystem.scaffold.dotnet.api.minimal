@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<!--
+	  The tests of the pack's own machinery: the client helper and the adapter. They need no running
+	  app and call nothing outside this machine. Run them from the repository root with dotnet run,
+	  naming this project with the project option.
+	-->
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<OutputType>Exe</OutputType>
+		<AssemblyName>AcceptanceTests.PackTests</AssemblyName>
+		<RootNamespace>AcceptanceTests.PackTests</RootNamespace>
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="TUnit" Version="1.75.0" />
+	</ItemGroup>
+
+	<!-- A report written by a real run of TUnit 1.75.0, with the machine's paths taken out. -->
+	<ItemGroup>
+		<None Update="Fixtures/tunit-report.trx" CopyToOutputDirectory="PreserveNewest" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\ClientHelper\ClientHelper.csproj" />
+		<ProjectReference Include="..\Adapter\Adapter.csproj" />
+	</ItemGroup>
+
+</Project>

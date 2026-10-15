@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<!--
+	  The app's acceptance tests: a TUnit pack that knows the running app only by its address, as any
+	  client does. Every test is typed Release, Acceptance or both, and acceptance-tests/run.sh runs
+	  exactly the set it is asked for. It references no project of the app and is not part of the
+	  app's solution: the pack must build with the app's code absent.
+	-->
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<OutputType>Exe</OutputType>
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="TUnit" Version="1.75.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\ClientHelper\ClientHelper.csproj" />
+	</ItemGroup>
+
+</Project>

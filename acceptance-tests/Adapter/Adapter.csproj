@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<!--
+	  The pack's adapter: once the tests have run, it turns the test framework's own report, each
+	  test's record of requests and each test's log into the result file every invoker reads, and
+	  answers the run's verdict. Plain code with no package and no Pellerex library.
+	-->
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<OutputType>Exe</OutputType>
+		<AssemblyName>AcceptanceTests.Adapter</AssemblyName>
+		<RootNamespace>AcceptanceTests.Adapter</RootNamespace>
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\ClientHelper\ClientHelper.csproj" />
+	</ItemGroup>
+
+</Project>
