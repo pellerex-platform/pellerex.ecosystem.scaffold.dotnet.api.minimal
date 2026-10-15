@@ -50,14 +50,19 @@ readonly RUN_ID_LENGTH=10
 # broke.
 run_selected_tests() {
     # The .NET family's part: the pack is a TUnit project, and a test's type is its Type property.
-    # It builds the adapter and the tests, runs the tests of the asked type with the testing
-    # platform's TRX report, and has the adapter write the result file. The tests' own console
-    # output stays in the run's scratch folder, which goes when the run ends: the result file is
-    # the run's record, and every line of it is redacted.
+    # The machinery, the tests' client and the adapter that writes the result file, is the
+    # acceptance part of the Pellerex.Testing package the project takes. It restores the project's
+    # packages, finds the adapter in that package, builds the tests, runs those of the asked type
+    # with the testing platform's TRX report, and has the adapter write the result file. The tests'
+    # own console output stays in the run's scratch folder, which goes when the run ends: the result
+    # file is the run's record, and every line of it is redacted.
     local test_type="$1" target="$2" result_path="$3" run_id="$4"
-    local pack_folder work started_at commit adapter tests tests_exit_code
+    local pack_folder tests_project work started_at commit adapter tests tests_exit_code
+    # The product's own id, filled in when the repository is made from its template.
+    local product_id="<marketplace-product-id>"
     started_at=$(date -u +%Y-%m-%dT%H:%M:%SZ)
     pack_folder=$(cd "$(dirname -- "${BASH_SOURCE[0]}")" && pwd) || return 2
+    tests_project="$pack_folder/AcceptanceTests/AcceptanceTests.csproj"
 
     if ! command -v dotnet >/dev/null 2>&1; then
         echo "run.sh: dotnet is not installed here, so the .NET pack cannot run" >&2
@@ -84,20 +89,27 @@ run_selected_tests() {
 
     commit=$(git -C "$pack_folder" rev-parse HEAD 2>/dev/null) || commit=""
     local shared=(--type "$test_type" --target "$target" --run-id "$run_id" --out "$result_path"
-        --started-at "$started_at" --commit "$commit" --pipeline-run-id "${GITHUB_RUN_ID:-${BUILD_BUILDID:-}}")
+        --started-at "$started_at" --product-id "$product_id" --commit "$commit"
+        --pipeline-run-id "${GITHUB_RUN_ID:-${BUILD_BUILDID:-}}")
 
-    if ! dotnet build "$pack_folder/Adapter/Adapter.csproj" --configuration Release --nologo >"$work/adapter-build.log" 2>&1; then
-        echo "run.sh: the pack's adapter does not build, so no result file can be written:" >&2
-        grep -F ': error ' "$work/adapter-build.log" | sort -u >&2
+    # The adapter comes in the package, so the packages are restored before anything is built:
+    # without them there is no adapter, and no result file can be written.
+    if ! dotnet restore "$tests_project" --nologo >"$work/restore.log" 2>&1; then
+        echo "run.sh: the pack's packages cannot be restored, so no result file can be written:" >&2
+        grep -F ': error ' "$work/restore.log" | sort -u >&2
         return 2
     fi
-    adapter=$(dotnet msbuild "$pack_folder/Adapter/Adapter.csproj" -getProperty:TargetPath -p:Configuration=Release) || return 2
+    adapter=$(dotnet msbuild "$tests_project" -getProperty:PellerexTestingAdapterPath) || return 2
+    if [ ! -f "$adapter" ]; then
+        echo "run.sh: the Pellerex.Testing package names no adapter here, so no result file can be written: ${adapter:-nothing}" >&2
+        return 2
+    fi
 
-    if ! dotnet build "$pack_folder/AcceptanceTests/AcceptanceTests.csproj" --configuration Release --nologo >"$work/tests-build.log" 2>&1; then
+    if ! dotnet build "$tests_project" --configuration Release --no-restore --nologo >"$work/tests-build.log" 2>&1; then
         dotnet "$adapter" build-failed "${shared[@]}" --build-log "$work/tests-build.log"
         return 2
     fi
-    tests=$(dotnet msbuild "$pack_folder/AcceptanceTests/AcceptanceTests.csproj" -getProperty:TargetPath -p:Configuration=Release) || return 2
+    tests=$(dotnet msbuild "$tests_project" -getProperty:TargetPath -p:Configuration=Release) || return 2
 
     ACCEPTANCE_TESTS_TARGET="$target" ACCEPTANCE_TESTS_RUN_ID="$run_id" ACCEPTANCE_TESTS_RECORDINGS="$work/recordings" \
         dotnet "$tests" --treenode-filter "/*/*/*/*[Type=$test_type]" --report-trx --report-trx-filename tests.trx \

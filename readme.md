@@ -77,18 +77,18 @@ A production-ready, minimal .NET API template with Docker containerization, heal
 
 `acceptance-tests/` holds the app's acceptance tests: black-box tests that call the running app over HTTP, as any client does, and never load its code.
 
+- **The machinery is one package.** `Pellerex.Testing`, Pellerex's testing library for .NET, holds in its acceptance part the client the tests call the app with, set-up and tear-down, the checks every run makes, and the adapter that writes the result file. `AcceptanceTests/AcceptanceTests.csproj` pins its version, so moving to a new version changes that one number. A test file takes it with `using Pellerex.Testing.Acceptance.Run;` and `using static Pellerex.Testing.Acceptance.ClientHelper.AcceptanceConstants;`. The package's code and its own tests live in the `pellerex.ecosystem.sdk.testing.dotnet` repository.
 - **Every test has a type.** Mark it `[Property(TestTypes.PropertyName, TestTypes.Release)]`, `[Property(TestTypes.PropertyName, TestTypes.Acceptance)]`, or both. Release tests are the only ones that ever run against a deployed copy, so they must be safe on live: light, and touching only data they create. Acceptance tests run only against a local copy. A test with no type makes the run an error.
 - **Every test has a name of its own.** The result file keeps a test by its name alone, so two tests with one name, even in different classes, make the run an error.
 - **Run a set** against a running copy of the app:
   ```bash
   acceptance-tests/run.sh --type Acceptance --target http://localhost:<port-number> --out result.json
   ```
-  It ends with 0 when every test passed, 1 when a test failed, and 2 when the run itself broke. The result file holds every test with every request it sent and every response it got, with secrets taken out.
+  It ends with 0 when every test passed, 1 when a test failed, and 2 when the run itself broke. The result file holds every test with every request it sent and every response it got, with secrets taken out. It restores the pack's packages first, since the adapter comes in the package; when they cannot be restored, the run ends with 2 and the restore's errors, and no result file.
 - **Call the app** with `TestRun.Client()`, using paths without a leading slash, such as `v1/hello`. When the run has a credential, a folder of files named in `ACCEPTANCE_TESTS_CREDENTIALS`, the client sends it.
 - **Set-up and tear-down.** Name each record a test creates with `TestData.Name("kind")`, create it through the app's API, and register how to remove it with `TestData.RemoveAfterTest(name, client => client.DeleteAsync(...))`. Tear-down removes it after the test, even when the test fails.
 - **Examples** are in `acceptance-tests/AcceptanceTests/Examples`: one Release test, one Acceptance test, and one of both.
 - **`standup.yaml`** tells the stand-up tool how to start this app in a container for a local run.
-- **The pack's own machinery**, `ClientHelper` and `Adapter`, is tested in `PackTests`: `dotnet run --project acceptance-tests/PackTests`.
 
 ## 📋 What's Included
 

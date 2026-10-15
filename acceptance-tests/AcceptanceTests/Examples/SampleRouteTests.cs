@@ -2,11 +2,11 @@ using System;
 using System.Net;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
-using AcceptanceTests.Run;
+using Pellerex.Testing.Acceptance.Run;
 using TUnit.Assertions;
 using TUnit.Assertions.Extensions;
 using TUnit.Core;
-using static AcceptanceTests.ClientHelper.PackConstants;
+using static Pellerex.Testing.Acceptance.ClientHelper.AcceptanceConstants;
 
 namespace AcceptanceTests.Examples
 {

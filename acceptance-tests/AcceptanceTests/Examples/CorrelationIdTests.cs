@@ -3,11 +3,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using AcceptanceTests.Run;
+using Pellerex.Testing.Acceptance.Run;
 using TUnit.Assertions;
 using TUnit.Assertions.Extensions;
 using TUnit.Core;
-using static AcceptanceTests.ClientHelper.PackConstants;
+using static Pellerex.Testing.Acceptance.ClientHelper.AcceptanceConstants;
 
 namespace AcceptanceTests.Examples
 {
