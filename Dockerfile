@@ -43,10 +43,12 @@ ENV Monitoring__AzureApplicationConnectionString=""
 # so the results are kept when a test fails, and a test that does not compile leaves a code
 # that is not 0. A run that finds no test at all is not a failure: the testing platform's code
 # for it (8) is given as 0, and every other code is kept as the runner gives it.
+# Generated database migrations (Migrations folders) are left out, to measure code people write.
 RUN mkdir -p /unit-test-results/test-coverage/unit-tests /unit-test-results/test-coverage/coverage; \
 	TUNIT_ENABLE_JUNIT_REPORTER=true dotnet run --project "unit-tests/RepoUniquePascalIdentifier.UnitTests.csproj" -c Release -- \
 		--junit-output-path /unit-test-results/test-coverage/unit-tests/junit.xml \
 		--coverlet --coverlet-output-format cobertura --coverlet-exclude-assemblies-without-sources MissingAll \
+		--coverlet-exclude-by-file "**/Migrations/**/*.cs" \
 		--results-directory /tmp/unit-test-run \
 		--ignore-exit-code 8; \
 	echo $? > /unit-test-results/unit-tests-exit-code; \
