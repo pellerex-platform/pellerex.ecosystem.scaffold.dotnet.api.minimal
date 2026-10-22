@@ -73,6 +73,10 @@ A production-ready, minimal .NET API template with Docker containerization, heal
 - **Swagger:** `/swagger`
 - **Health Checks:** `/health/live`, `/health/ready`, `/health/startup`
 
+## Unit Tests
+
+`unit-tests/` holds the app's unit tests, written with TUnit like the acceptance tests. They start the app in memory, with no database, network or container; run them with `dotnet run --project unit-tests/RepoUniquePascalIdentifier.UnitTests.csproj`. Every build runs them in the Dockerfile's `unit-tests` stage before it builds the image, keeps their results and line coverage as the `test-coverage` artifact, which Pellerex reads for the app's Test Coverage tab, and stops when a test fails.
+
 ## Acceptance Tests
 
 `acceptance-tests/` holds the app's acceptance tests: black-box tests that call the running app over HTTP, as any client does, and never load its code.
