@@ -70,7 +70,7 @@ A production-ready, minimal .NET API template with Docker containerization, heal
 
 - **Local Development:** http://localhost:8890
 - **Docker:** http://localhost:8890
-- **Swagger:** `/swagger`
+- **Swagger:** `/swagger`, on the developer's own computer only
 - **Health Checks:** `/health/live`, `/health/ready`, `/health/startup`
 
 ## Unit Tests
@@ -99,7 +99,7 @@ A production-ready, minimal .NET API template with Docker containerization, heal
 ### 🏗️ Architecture
 - **Minimal API Structure**: Streamlined `api/` folder with essential components
 - **Docker**: Multi-stage build with health checks
-- **Swagger**: API documentation at `/swagger`
+- **Swagger**: API documentation at `/swagger`, on the developer's own computer only
 - **Health Checks**: `/health/live`, `/health/ready`, `/health/startup`
 
 ### � Features
